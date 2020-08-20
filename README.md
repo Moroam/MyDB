@@ -1,8 +1,14 @@
 # MyDB
-Simple wrapper for mysqli PHP 
+Simple and power wrapper for mysqli PHP 
 
 ### Simple
 All functionality is implemented statically.To work with an instance is used the analog singleton pattern. But you don't need to create a instance of the connection specifically, everything happens automatically))
+
+### Power
+The main functions are implemented in the class itself, but nothing prevents you from using all the features of mysqli
+```php
+MyDB::mysqli()->func_name(...)
+```
 
 ### Main functions
 1. mysqli - return the instance of mysqli
