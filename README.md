@@ -1,10 +1,10 @@
 # MyDB
 Simple wrapper for mysqli PHP 
 
-## Simple
-All functionality is implemented statically. To work with an instance is used the analog singleton pattern.
+### Simple
+All functionality is implemented statically.To work with an instance is used the analog singleton pattern. But you don't need to create a instance of the connection specifically, everything happens automatically))
 
-Main functions:
+### Main functions
 1. mysqli - return the instance of mysqli
 2. close - closing the mysqli connection
 3. q - executing mysql queries
@@ -20,8 +20,12 @@ Main functions:
 12. test - formating/testing the value of a variable/string for working with sql
 13. TIP - "test input post" - testing/fomating and set the default value of a variable from the $_POST array
 
+### Configuration
+You must first define the values DB_HOST, DB_USER, DB_PASS, DB_NAME and if you need DB_CHAR
+> OR you have to modify the DB::mysqli() method
+
 ## Example
-```
+```php
 MyDB::q('DROP TABLE IF EXISTS TEST;');
 
 $query = 'CREATE TABLE `TEST` (
