@@ -14,8 +14,8 @@ MyDB::mysqli()->func_name(...)
 1. mysqli - return the instance of mysqli
 2. close - closing the mysqli connection
 3. q - executing mysql queries
-4. one - getting a single value from mysqli_result. Used, for example, to get the result of executing an aggregate function
-5. oneSQL - getting a single value from the result of executing an sql query
+4. o - getting a single value from mysqli_result. Used, for example, to get the result of executing an aggregate function
+5. oSQL - getting a single value from the result of executing an sql query
 6. aFields - an array of fields mysqli_result
 7. html - returns mysqli_result as an html table
 8. a - returns mysqli_result as an array
