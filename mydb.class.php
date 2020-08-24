@@ -63,6 +63,9 @@ class MyDB
    * @throws mysqli_sql_exception If any mysqli function failed due to mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT)
    */
   public static function o(mysqli_result $query ) : string {
+    if($query->num_rows == 0){
+      return null;
+    }
     $query->data_seek(0);
     $row = $query->fetch_row();
     $query->free();
