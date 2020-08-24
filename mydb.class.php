@@ -227,7 +227,7 @@ class MyDB
    */
   public static function tip(string $var_name, $def_value = '') : string {
     $data = $_POST[$var_name] ?? $def_value;
-    return self::test($data);
+    return self::t($data);
   }
 
 }
