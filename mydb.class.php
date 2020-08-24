@@ -62,7 +62,7 @@ class MyDB
    * @param mysqli_result $query
    * @throws mysqli_sql_exception If any mysqli function failed due to mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT)
    */
-  public static function one(mysqli_result $query ) : string {
+  public static function o(mysqli_result $query ) : string {
     $query->data_seek(0);
     $row = $query->fetch_row();
     $query->free();
@@ -77,7 +77,7 @@ class MyDB
    * @throws mysqli_sql_exception If any mysqli function failed due to mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT)
    */
   public static function oneSQL(string $sql) : string {
-    return self::one(self::q($sql));
+    return self::o(self::q($sql));
   }
 
 
