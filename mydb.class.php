@@ -211,7 +211,7 @@ class MyDB
    * @param mixed $value
    * @return string
    */
-  public static function test( $value ) : string {
+  public static function t( $value ) : string {
     $data = strval($value);
     $data = trim($data);
     $data = stripslashes($data);
@@ -225,7 +225,7 @@ class MyDB
    * @param string $var_name
    * @param $def_value default value if post value not exists
    */
-  public static function TIP(string $var_name, $def_value = '') : string {
+  public static function tip(string $var_name, $def_value = '') : string {
     $data = $_POST[$var_name] ?? $def_value;
     return self::test($data);
   }
