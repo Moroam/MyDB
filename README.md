@@ -23,8 +23,8 @@ MyDB::mysqli()->func_name(...)
 10. a2 - returns the result of executing an sql query as a two-dimensional associative array.
     For example, SELECT id, value FROM spr ORDER BY id; = > array[id] = value
 11. qMulti - returns the mysqli_result array obtained as a result of executing the multiquery
-12. test - formating/testing the value of a variable/string for working with sql
-13. TIP - "test input post" - testing/fomating and set the default value of a variable from the $_POST array
+12. t - formating/testing the value of a variable/string for working with sql
+13. tip - "test input post" - testing/fomating and set the default value of a variable from the $_POST array
 
 ### Configuration
 You must first define the values DB_HOST, DB_USER, DB_PASS, DB_NAME and if you need DB_CHAR
