@@ -55,7 +55,7 @@ var_dump(MyDB::aSQL("SELECT * FROM TEST ORDER BY 1 DESC;"));
 
 echo "<br><br>";
 
-var_dump(MyDB::oneSQL("SELECT count(*) FROM TEST;"));
+var_dump(MyDB::oSQL("SELECT count(*) FROM TEST;"));
 
 echo "<br><br>";
 
