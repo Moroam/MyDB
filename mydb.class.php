@@ -79,7 +79,7 @@ class MyDB
    * @param string $sql SQL query
    * @throws mysqli_sql_exception If any mysqli function failed due to mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT)
    */
-  public static function oneSQL(string $sql) : string {
+  public static function oSQL(string $sql) : string {
     return self::o(self::q($sql));
   }
 
