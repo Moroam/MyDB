@@ -17,8 +17,8 @@ class MyDB
   public static function mysqli(bool $error_reporting = false) : mysqli {
     if(self::$mysqli === null) {
       try {
-        self::$mysqli = new mysqli(HOST, USER, PASSWORD, DATABASE);
-        defined('DB_CHAR') && self::$mysqli->set_charset(CHARSET);
+        self::$mysqli = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_BASE);
+        defined('DB_CHAR') && self::$mysqli->set_charset(DB_CHAR);
       } catch (mysqli_sql_exception $e) {
         die('Database connection could not be established.');
       }
