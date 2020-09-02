@@ -61,8 +61,6 @@ $query = 'INSERT INTO `TEST` (A,C,D,E) VALUES(?,?,?,?);';
 MyDB::pr($query, [9,8,11,15], 'iiii');
 MyDB::pr($query, [12,6,'Ds','HS'], 'iiss');
 
-MyDB::pr('INSERT INTO `TEST` (A,C,D,E) VALUES(?,?,?,?);', [12,6,'Ds','HS'], 'iiss');
-
 echo MyDB::html(MyDB::q("SELECT * FROM TEST;"), "TEST MyDB") . "<br>";
 
 var_dump(MyDB::aSQL("SELECT * FROM TEST ORDER BY 1 DESC;"));
