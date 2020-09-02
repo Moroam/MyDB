@@ -2,7 +2,7 @@
 /**
  * Class MyDB
  *
- * @version 1.0.1
+ * @version 1.0.2
  */
 class MyDB
 {
@@ -14,17 +14,28 @@ class MyDB
   /**
    * Return the instance of mysqli
    */
-  public static function mysqli() : mysqli {
+  public static function mysqli(bool $error_reporting = false) : mysqli {
     if(self::$mysqli === null) {
       try {
-        self::$mysqli = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-        defined('DB_CHAR') && self::$mysqli->set_charset(DB_CHAR);
+        self::$mysqli = new mysqli(HOST, USER, PASSWORD, DATABASE);
+        defined('DB_CHAR') && self::$mysqli->set_charset(CHARSET);
       } catch (mysqli_sql_exception $e) {
         die('Database connection could not be established.');
       }
     }
 
     return self::$mysqli;
+  }
+
+  /**
+   * Enables or disables internal reporting functions
+   */
+  public static function rep(bool $enable = true) : void {
+    if( $enable ){
+      mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+    } else {
+      mysqli_report(MYSQLI_REPORT_OFF);
+    }
   }
 
   public static function close() : bool {
@@ -147,14 +158,7 @@ class MyDB
    * @throws mysqli_sql_exception If any mysqli function failed due to mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT)
    */
   public static function a(mysqli_result $query, bool $assoc = TRUE, bool $free = TRUE) : array {
-    $arr = [];
-    $query->data_seek(0);
-
-    if($assoc){
-      while ($row = $query->fetch_assoc()) $arr[] = $row;
-    } else {
-      while ($row = $query->fetch_row()) $arr[] = $row;
-    }
+    $arr = $query->fetch_all($assoc ? MYSQLI_ASSOC : MYSQLI_NUM);
 
     if($free){
       $query->free();
@@ -208,6 +212,38 @@ class MyDB
     return $arr;
   }
 
+
+  /**
+   * Make Prepared Statements, bind parameters and execute
+   * @param string $sql statement for prepare
+   * @param array $param binded parameters
+   * @param string $types types (i/d/s/b) for binded parameter, by default is string
+   */
+  public static function p(string $sql, array $params = [], string $types = '') : mysqli_stmt {
+    $stmt = self::mysqli()->prepare($sql);
+    if(count($params) > 0){
+      $types = $types ?: str_repeat("s", count($params));
+      $stmt->bind_param($types, ...$params);
+    }
+    $stmt->execute();
+    return $stmt;
+  }
+
+
+  /**
+   * Returns the result of execution Prepared Statements with binded parameters
+   * @param string $sql statement for prepare
+   * @param array $param binded parameters
+   * @param string $types types (i/d/s/b) for binded parameter, by default is string
+   */
+  public static function pr(string $sql, array $params = [], string $types = '') {
+    $stmt =  self::p($sql, $params, $types);
+    $result = $stmt->get_result();
+    $stmt->close();
+    return $result;
+  }
+
+
   /**
    * Format value for working with sql
    *
@@ -222,8 +258,9 @@ class MyDB
     return self::mysqli()->real_escape_string($data);
   }
 
+
   /**
-   * Test and format post value for working with sql
+   * Test and format post value
    *
    * @param string $var_name
    * @param $def_value default value if post value not exists
@@ -233,4 +270,32 @@ class MyDB
     return self::t($data);
   }
 
+
+  /**
+   * Test and format post value for search fields for working with sql - replace '*' on '%'
+   *
+   * @param string $var_name
+   * @param $def_value default value if post value not exists
+   */
+  public static function sfp(string $var_name, $def_value = '') : string {
+    return str_replace('*', '%', MyDB::tip($var_name, $def_value));
+  }
+
+
+  /**
+   * Tests and formats post values for working with sql
+   * replaces an empty string with NULL and puts the value in quotes
+   *
+   * @param string $var_name
+   * @param $def_value default value if post value not exists
+   * @param bool $quotes puts the value in quotes
+   */
+  public static function qtip(string $var_name, $def_value = '', bool $quotes = TRUE) : string {
+    $data = self::tip($var_name, $def_value);
+    if($data == '')
+      $data = 'NULL';
+    elseif( $quotes )
+      $data = "'$data'";
+    return $data;
+  }
 }
