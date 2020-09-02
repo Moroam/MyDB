@@ -30,7 +30,7 @@ MyDB::mysqli()->func_name(...)
 13. p - make Prepared Statements, bind parameters and execute
 14. pr - returns the result of execution Prepared Statements with binded parameters
 #### test values
-15. t - formating/testing the value of a variable/string for working with sql
+15. t - formating/testing the value of a variable
 16. tip - "test input post" - testing/fomating and set the default value of a variable from the $_POST array
 17. spf - "search post values format" - test and format post value for search fields for working with sql - replace '*' on '%'
 18. qtip - test and format post values for working with sql replaces an empty string with NULL and puts the value in quotes
